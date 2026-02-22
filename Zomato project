@@ -1,0 +1,72 @@
+class Zomato:
+    def __init__(self):
+        self.username = ""
+        self.password = ""
+        self.is_logged_in = False
+        
+        
+        self.menu = {
+            "Pizza":150,
+            "Burger":100,
+            "Pasta":80,
+            "Lemon Juice":30,
+            "Cold coffee":70,
+            "Ice Cream":30,
+            "Cake":200
+        }
+
+    def signup(self):
+        print('---create your account---')
+        self.username = input("set your username :")
+        self.password = input("set your password :")
+        print("Your account has been created successfully")
+
+    def login(self):
+        print('---Welcome to zomato---')
+        u_name = input('Enter your Name : ')
+        u_pwd = input('Enter your Password : ')
+
+        if u_name == self.username and u_pwd == self.password and self.username != "":
+            print(f"\nLogin successful,{u_name}")
+            self.is_logged_in = True
+
+        else:
+            print(f"\nInavalid Please try again.")
+            self.is_logged_in = False
+
+                
+    def show_menu(self):
+        print('---Menu Card---')
+        for item,price in self.menu.items():
+            print(f'{item}: Rs:{price}')
+
+    def place_order(self):
+        if not self.is_logged_in:
+            
+            print("please login frist!")
+            return
+            
+        self.show_menu()
+        order = input("what you want to order : ").title() # isse upper or lower case dono same considered ho jate hai
+
+        if order in self.menu:
+            Qty = int(input('How many {order} do you want'))
+            total = self.menu[order] * Qty
+
+            print('---Bill Amount--- ')
+            print(f'Item :{order}\nQuantity:{Qty}\nTotal Amount:{total}')
+            print('order placed! your order is on the way')
+
+        else:
+            print('sorry,this item is not available')
+
+
+app = Zomato()
+
+app.signup()
+
+app.login()
+
+if app.is_logged_in:
+    app.place_order()
+
